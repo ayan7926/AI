@@ -1,0 +1,16 @@
+quick_sort(L,L1):-
+	quick_acc(L,[],L1).
+quick_acc([],A,A):-!.
+quick_acc([H|T],A,L1):-
+	partition(T,Lt,H,Gt),
+	quick_acc(Lt,[],LtSorted),
+	quick_acc(Gt,[],GtSorted),
+	append(LtSorted,[H|GtSorted],L1).
+partition([],[],_,[]):-!.
+partition([H|T],[H|Lt],X,Gt):-
+	H=<X,!,partition(T,Lt,X,Gt).
+partition([H|T],Lt,X,[H|Gt]):-
+	H>X,partition(T,Lt,X,Gt).
+append([],L,L):-!.
+append([H|L],L1,[H|L2]):-
+	append(L,L1,L2).
